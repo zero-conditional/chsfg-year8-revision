@@ -18,9 +18,17 @@ The first version is designed to be:
 - useful before any advanced features exist
 - based on the school Year 8 exam booklet for `5 May 2026` to `21 May 2026`
 
+## Open the published site
+
+If GitHub Pages is enabled for this repository, the published site URL will be:
+
+`https://zero-conditional.github.io/chsfg-year8-revision/`
+
+If that URL does not load yet, enable GitHub Pages in the repository settings and deploy from the default branch root.
+
 ## Open it locally
 
-Open [index.html](C:/Users/graha/Documents/Github/ks3_revision_guide/index.html) in a browser.
+Open [index.html](./index.html) in a browser.
 
 No install step is required.
 
