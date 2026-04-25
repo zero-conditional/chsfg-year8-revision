@@ -3,6 +3,7 @@
   var root = document.documentElement;
   var themeToggle = document.querySelector("[data-theme-toggle]");
   var savedTheme = null;
+  injectSiteFooter();
 
   try {
     savedTheme = window.localStorage.getItem(storageKey);
@@ -116,5 +117,28 @@
 
     themeToggle.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
     themeToggle.textContent = theme === "dark" ? "Light mode" : "Dark mode";
+  }
+
+  function injectSiteFooter() {
+    var pageShell = document.querySelector(".page-shell");
+
+    if (!pageShell || pageShell.querySelector(".site-footer")) {
+      return;
+    }
+
+    var footer = document.createElement("footer");
+    footer.className = "site-footer";
+
+    var copyright = document.createElement("p");
+    copyright.className = "site-footer-meta";
+    copyright.textContent = "© 2026 KS3 Year 8 Revision Site. All rights reserved.";
+
+    var sourceNote = document.createElement("p");
+    sourceNote.className = "site-footer-note";
+    sourceNote.textContent = "This site reorganises information drawn from CHSFG Year 8 exam materials, including the school exam booklet, into a simpler revision guide for families. CHSFG remains the original source of timetable and exam information.";
+
+    footer.appendChild(copyright);
+    footer.appendChild(sourceNote);
+    pageShell.appendChild(footer);
   }
 })();

@@ -314,6 +314,33 @@ p {
   margin-top: 1.85rem;
 }
 
+.site-footer {
+  margin-top: 2rem;
+  padding: 1.35rem 1.5rem;
+  border: 1px solid color-mix(in srgb, var(--line) 88%, transparent);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--paper) 86%, transparent);
+  box-shadow: var(--shadow-soft);
+}
+
+.site-footer-meta,
+.site-footer-note {
+  margin: 0;
+  max-width: 72ch;
+}
+
+.site-footer-meta {
+  color: var(--ink);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.site-footer-note {
+  margin-top: 0.45rem;
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+
 .section-heading {
   margin-bottom: 1rem;
 }
@@ -590,7 +617,8 @@ p {
 
   .card,
   .subject-card,
-  .hero-panel {
+  .hero-panel,
+  .site-footer {
     padding: 1.15rem;
     border-radius: 20px;
   }
