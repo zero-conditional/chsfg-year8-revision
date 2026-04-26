@@ -2,6 +2,19 @@
 
 A simple static website that reorganises the CHSFG Year 8 exam booklet into easier-to-scan pages for home use.
 
+## Release note
+
+`Release 1` is the first full version of the site.
+
+It expands the original core-subject draft into a fuller Year 8 revision guide by:
+
+- covering the full set of booklet subjects plus `GL English`, `GL Maths`, and `GL Science`
+- adding booklet-backed exam and revision content across subject pages
+- adding practice sections with question types, self-check prompts, and extra revision routes
+- adding a careful `GL assessments explained` page
+- adding a `Practice Papers and Questions` page that explains the limits of public practice-paper searching for Year 8
+- improving the homepage with clearer navigation, stronger orientation, and better desktop layout
+
 ## What is in this repo
 
 - a homepage with the exam window and quick routes into revision
