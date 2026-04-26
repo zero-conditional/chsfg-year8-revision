@@ -257,10 +257,11 @@ p {
 }
 
 .hero-actions {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.9rem;
   margin-top: 1.5rem;
+  width: 100%;
 }
 
 .button {
@@ -268,6 +269,7 @@ p {
   align-items: center;
   justify-content: center;
   min-height: 2.85rem;
+  width: 100%;
   padding: 0.82rem 1.2rem;
   border-radius: 999px;
   border: 1px solid transparent;
@@ -314,6 +316,66 @@ p {
   margin-top: 1.85rem;
 }
 
+.page-jump-bar,
+.subject-jump-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.page-jump-bar {
+  position: sticky;
+  top: 0.8rem;
+  z-index: 8;
+  padding: 0.8rem;
+  border: 1px solid color-mix(in srgb, var(--line) 88%, transparent);
+  border-radius: calc(var(--radius) - 4px);
+  background: color-mix(in srgb, var(--paper) 78%, transparent);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(10px);
+}
+
+.jump-pill,
+.subject-jump-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5rem;
+  padding: 0.65rem 1rem;
+  border: 1px solid color-mix(in srgb, var(--line) 88%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--paper) 90%, transparent);
+  color: var(--muted);
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 160ms ease, background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+
+.jump-pill:hover,
+.subject-jump-pill:hover {
+  color: var(--ink);
+  background: var(--nav-active);
+  border-color: color-mix(in srgb, var(--warm) 40%, var(--line));
+  transform: translateY(-1px);
+}
+
+.subject-jump-bar {
+  margin-bottom: 1rem;
+}
+
+.next-step-panel {
+  margin-top: 1rem;
+  padding: 1rem 1.15rem;
+  border-left: 4px solid var(--warm);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--paper) 84%, var(--sky));
+}
+
+.next-step-panel p:last-child,
+.next-step-link {
+  margin-bottom: 0;
+}
+
 .site-footer {
   margin-top: 2rem;
   padding: 1.35rem 1.5rem;
@@ -357,12 +419,16 @@ p {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.two-column > :last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
 .three-column {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .card-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 }
 
 .quick-start-grid {
@@ -436,6 +502,11 @@ p {
   text-decoration-thickness: 2px;
 }
 
+.resource-list strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+
 .resource-list p {
   margin: 0.25rem 0 0;
   color: var(--muted);
@@ -494,9 +565,14 @@ p {
 
 .section-heading h2,
 .card h2,
-.card h3,
+.card h3 {
+  max-width: 30ch;
+  text-wrap: balance;
+}
+
 .subject-card h3 {
-  max-width: 18ch;
+  max-width: none;
+  text-wrap: balance;
 }
 
 .subject-card p,
@@ -508,6 +584,36 @@ p {
   max-width: 52ch;
 }
 
+@media (min-width: 901px) {
+  .two-column > :last-child:nth-child(odd) {
+    padding: 1.8rem 2rem;
+  }
+
+  .two-column > :last-child:nth-child(odd) h2,
+  .two-column > :last-child:nth-child(odd) h3 {
+    max-width: 42ch;
+  }
+
+  .two-column > :last-child:nth-child(odd) p {
+    max-width: 72ch;
+  }
+
+  .two-column > :last-child:nth-child(odd) .plain-list,
+  .two-column > :last-child:nth-child(odd) .check-list,
+  .two-column > :last-child:nth-child(odd) .number-list {
+    max-width: none;
+    columns: 2;
+    column-gap: 2.5rem;
+  }
+
+  .two-column > :last-child:nth-child(odd) .plain-list li,
+  .two-column > :last-child:nth-child(odd) .check-list li,
+  .two-column > :last-child:nth-child(odd) .number-list li {
+    max-width: none;
+    break-inside: avoid;
+  }
+}
+
 @media (max-width: 900px) {
   .hero,
   .two-column,
@@ -515,6 +621,11 @@ p {
   .card-grid,
   .quick-start-grid {
     grid-template-columns: 1fr;
+  }
+
+  .page-jump-bar {
+    position: static;
+    top: auto;
   }
 
   .site-header {
@@ -550,6 +661,11 @@ p {
     justify-content: center;
     text-align: center;
     border-radius: 20px;
+  }
+
+  .page-jump-bar,
+  .subject-jump-bar {
+    gap: 0.5rem;
   }
 
   .site-nav {
@@ -603,7 +719,6 @@ p {
   }
 
   .hero-actions {
-    display: grid;
     grid-template-columns: 1fr;
   }
 

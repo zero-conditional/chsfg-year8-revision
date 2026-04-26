@@ -3,6 +3,7 @@
   var root = document.documentElement;
   var themeToggle = document.querySelector("[data-theme-toggle]");
   var savedTheme = null;
+
   injectSiteFooter();
 
   try {
@@ -50,17 +51,42 @@
   renderList("revision-strategy", subject.revision_strategy, "plain-list");
   renderList("weekly-checklist", subject.weekly_checklist, "check-list");
   renderLinks("curated-links", subject.curated_links);
+  renderPracticeSection(subject.practice_section);
 
   function setText(id, value) {
     var element = document.getElementById(id);
-    if (element) {
+    if (element && value) {
       element.textContent = value;
+    }
+  }
+
+  function setOptionalText(id, value) {
+    var element = document.getElementById(id);
+    var wrapper = element && element.closest("[data-optional-section]");
+
+    if (!element) {
+      return;
+    }
+
+    if (value) {
+      element.textContent = value;
+      return;
+    }
+
+    if (wrapper) {
+      wrapper.hidden = true;
     }
   }
 
   function renderList(id, items, className) {
     var element = document.getElementById(id);
+
     if (!element) {
+      return;
+    }
+
+    if (!items || !items.length) {
+      hideOptionalSection(element);
       return;
     }
 
@@ -78,7 +104,13 @@
 
   function renderLinks(id, links) {
     var element = document.getElementById(id);
+
     if (!element) {
+      return;
+    }
+
+    if (!links || !links.length) {
+      hideOptionalSection(element);
       return;
     }
 
@@ -87,22 +119,55 @@
 
     links.forEach(function (link) {
       var listItem = document.createElement("li");
-      var anchor = document.createElement("a");
       var note = document.createElement("p");
 
-      anchor.href = link.url;
-      anchor.textContent = link.label;
-      anchor.target = "_blank";
-      anchor.rel = "noreferrer";
+      if (link.url) {
+        var anchor = document.createElement("a");
+        anchor.href = link.url;
+        anchor.textContent = link.label;
+        anchor.target = "_blank";
+        anchor.rel = "noreferrer";
+        listItem.appendChild(anchor);
+      } else {
+        var label = document.createElement("strong");
+        label.textContent = link.label;
+        listItem.appendChild(label);
+      }
 
       note.textContent = link.note;
 
-      listItem.appendChild(anchor);
       listItem.appendChild(note);
       list.appendChild(listItem);
     });
 
     element.appendChild(list);
+  }
+
+  function renderPracticeSection(practiceSection) {
+    var practiceRoot = document.getElementById("practice-section");
+
+    if (!practiceRoot) {
+      return;
+    }
+
+    if (!practiceSection) {
+      practiceRoot.hidden = true;
+      return;
+    }
+
+    setOptionalText("practice-title", practiceSection.title);
+    setOptionalText("practice-summary", practiceSection.summary);
+    renderList("practice-question-types", practiceSection.question_types, "plain-list");
+    renderList("practice-self-check", practiceSection.self_check, "check-list");
+    renderLinks("practice-links", practiceSection.practice_links);
+  }
+
+  function hideOptionalSection(element) {
+    var wrapper = element.closest("[data-optional-section]");
+
+    if (wrapper) {
+      wrapper.hidden = true;
+    }
   }
 
   function applyTheme(theme) {
@@ -131,7 +196,7 @@
 
     var copyright = document.createElement("p");
     copyright.className = "site-footer-meta";
-    copyright.textContent = "© 2026 KS3 Year 8 Revision Site. All rights reserved.";
+    copyright.textContent = "\u00A9 2026 KS3 Year 8 Revision Site. All rights reserved.";
 
     var sourceNote = document.createElement("p");
     sourceNote.className = "site-footer-note";
